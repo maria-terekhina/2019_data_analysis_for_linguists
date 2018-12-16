@@ -1,5 +1,30 @@
+---
+title: "Home work 2"
+output: html_document
+author: "Мария Терехина"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include=FALSE}
+library(tidyverse)
+
+```
 ### 1.1
+```{r}
+data <- read.csv('C:\\Users\\Masha\\Documents\\R\\Assist\\hw2_phoible.csv')
 
+data['share'] <- data['consonants'] / data['phonemes']
+
+data['language'][data['share'] == max(data['share'])]
+```
 ### 1.2
+```{r}
+data['posterior'] <- pbeta(c(data[, 'share']) , 9.300246, 4.4545)
 
+data['difference'] <- apply(data['posterior'] - data['share'], 1, FUN = Mod)
 
+data[order(data[, 'difference']), ][1:6, 'language']
+```
